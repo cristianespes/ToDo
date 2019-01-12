@@ -1,4 +1,4 @@
-package com.cristianespes.todo.ui.base
+package com.cristianespes.todo.ui
 
 import android.app.Application
 import com.cristianespes.todo.di.koin.appModule

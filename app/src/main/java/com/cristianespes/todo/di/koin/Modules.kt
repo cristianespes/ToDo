@@ -7,7 +7,9 @@ import com.cristianespes.todo.data.repository.TaskRepository
 import com.cristianespes.todo.data.repository.TaskRepositoryImpl
 import com.cristianespes.todo.data.repository.datasource.local.LocalDataSource
 import com.cristianespes.todo.data.repository.datasource.local.ToDoDatabase
+import com.cristianespes.todo.ui.tasks.TaskViewModel
 import org.koin.android.ext.koin.androidContext
+import org.koin.android.viewmodel.ext.koin.viewModel
 import org.koin.dsl.module.module
 
 val appModule = module {
@@ -24,5 +26,8 @@ val appModule = module {
     single { LocalDataSource(get(), get(), get()) }
 
     single<TaskRepository> { TaskRepositoryImpl(get()) }
+
+    // Inyectamos dependencias a Fragment haciendo uso de la librería  koin-viewModel
+    viewModel { TaskViewModel(get()) }
 
 }
