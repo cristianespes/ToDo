@@ -8,6 +8,16 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
-    <style name="MyToolbar" parent="Widget.AppCompat.Toolbar"></style>
+    <style name="MyToolbar" parent="Widget.AppCompat.Toolbar">
+
+    </style>
+
+    <style name="TaskContent" parent="TextAppearance.MaterialComponents.Body2">
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="TaskDate" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="android:textColor">@color/colorSecondaryText</item>
+    </style>
 
 </resources>

@@ -21,7 +21,7 @@ val appModule = module {
 
     single { TaskEntityMapper() }
 
-    single { Room.databaseBuilder(androidContext(), ToDoDatabase::class.java, "todo.db").build() }
+    single<ToDoDatabase>  { Room.databaseBuilder(androidContext(), ToDoDatabase::class.java, "todo.db").build() }
 
     single { LocalDataSource(get(), get(), get()) }
 
