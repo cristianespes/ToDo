@@ -9,9 +9,15 @@ class TaskRepositoryImpl(val localDataSource: LocalDataSource): TaskRepository {
 
     override fun getTaskById(taskId: Long): Single<Task> = localDataSource.getTaskById(taskId)
 
-    override fun insert(task: Task) = localDataSource.insert(task)
+    override fun insert(task: Task) {
+        localDataSource.insert(task)
+    }
 
-    override fun delete(task: Task) = localDataSource.delete(task)
+    override fun delete(task: Task) {
+        localDataSource.delete(task)
+    }
 
-    override fun update(task: Task) = localDataSource.update(task)
+    override fun update(task: Task) {
+        localDataSource.update(task)
+    }
 }

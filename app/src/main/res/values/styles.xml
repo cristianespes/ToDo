@@ -6,9 +6,18 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+
+        <item name="colorIcon">@color/darkColorIcon</item>
     </style>
 
-    <style name="MyToolbar" parent="Widget.AppCompat.Toolbar">
+    <style name="Dialog" parent="Theme.Design.BottomSheetDialog">
+
+    </style>
+
+    <style name="MyToolbar">
+        <item name="theme">@style/ThemeOverlay.AppCompat.Dark</item>
+        <item name="android:background">?colorPrimary</item>
+        <item name="android:elevation">4dp</item>
 
     </style>
 

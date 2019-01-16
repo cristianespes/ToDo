@@ -1,4 +1,4 @@
-package io.keepcoding.todo.ui.tasks
+package com.cristianespes.todo.ui.tasks
 
 import androidx.recyclerview.widget.DiffUtil
 import com.cristianespes.todo.data.model.Task
