@@ -16,9 +16,8 @@
 
     <style name="MyToolbar">
         <item name="theme">@style/ThemeOverlay.AppCompat.Dark</item>
+        <item name="android:popupTheme">@style/ThemeOverlay.AppCompat.Dark</item>
         <item name="android:background">?colorPrimary</item>
-        <item name="android:elevation">4dp</item>
-
     </style>
 
     <style name="TaskContent" parent="TextAppearance.MaterialComponents.Body2">
