@@ -55,6 +55,12 @@ class TaskFragment: Fragment(), TaskAdapter.Listener {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+
+        taskViewModel.loadTasks()
+    }
+
     private fun setUpRecycler() {
         recyclerTasks.layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
         recyclerTasks.itemAnimator = DefaultItemAnimator()
