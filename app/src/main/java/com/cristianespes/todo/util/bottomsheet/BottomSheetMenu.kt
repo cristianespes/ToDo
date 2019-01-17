@@ -22,7 +22,9 @@ class BottomSheetMenu(private val context: Context,
 
         with(view) {
             recyclerBottomSheet.layoutManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-            recyclerBottomSheet.adapter = BottomSheetMenuAdapter(items)
+            recyclerBottomSheet.adapter = BottomSheetMenuAdapter(items) {
+                bottomSheetDialog.dismiss()
+            }
         }
     }
 

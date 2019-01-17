@@ -11,7 +11,8 @@ import kotlinx.android.synthetic.main.item_bottom_sheet_menu.view.*
  * Created by costular on 29/08/17.
  */
 
-class BottomSheetMenuAdapter(private val items: List<BottomMenuItem>) : RecyclerView.Adapter<BottomSheetMenuAdapter.BottomSheetMenuViewHolder>() {
+class BottomSheetMenuAdapter(private val items: List<BottomMenuItem>,
+                             val clickListener: () -> Unit) : RecyclerView.Adapter<BottomSheetMenuAdapter.BottomSheetMenuViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BottomSheetMenuViewHolder {
         return BottomSheetMenuViewHolder(LayoutInflater.from(parent.context).inflate(R.layout.item_bottom_sheet_menu, parent, false))
@@ -23,14 +24,17 @@ class BottomSheetMenuAdapter(private val items: List<BottomMenuItem>) : Recycler
         holder.bind(items[position])
     }
 
-    class BottomSheetMenuViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
+    inner class BottomSheetMenuViewHolder(val view: View) : RecyclerView.ViewHolder(view) {
 
         fun bind(item: BottomMenuItem) {
             with(view) {
                 bottom_menu_title.text = item.name
                 bottom_menu_icon.setImageResource(item.resId)
 
-                setOnClickListener { item.action() }
+                setOnClickListener {
+                    clickListener.invoke()
+                    item.action()
+                }
             }
         }
     }
