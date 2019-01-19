@@ -1,12 +1,14 @@
 package com.cristianespes.todo.ui.tasks
 
 import android.animation.ValueAnimator
+import android.graphics.Color
 import android.text.SpannableString
 import android.text.Spanned
 import android.text.style.StrikethroughSpan
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CheckBox
 import android.widget.TextView
 import androidx.interpolator.view.animation.FastOutSlowInInterpolator
 import androidx.recyclerview.widget.ListAdapter
@@ -14,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.cristianespes.todo.R
 import com.cristianespes.todo.data.model.Task
 import com.cristianespes.todo.util.DateHelper
+import com.cristianespes.todo.util.IconButton
 import kotlinx.android.synthetic.main.item_task.view.*
 
 class TaskAdapter(val listener: Listener) : ListAdapter<Task, TaskAdapter.TaskViewHolder>(TaskDiffUtil.getInstance()) {
@@ -22,6 +25,7 @@ class TaskAdapter(val listener: Listener) : ListAdapter<Task, TaskAdapter.TaskVi
         fun onTaskClicked(task: Task)
         fun onTaskMarked(task: Task, isDone: Boolean)
         fun onTaskLongClicked(task: Task)
+        fun onTaskHighPriorityMarked(task: Task, isHighPriority: Boolean)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
@@ -43,6 +47,8 @@ class TaskAdapter(val listener: Listener) : ListAdapter<Task, TaskAdapter.TaskVi
                     removeStrikethrough(textContent, task.content)
                 }
 
+                applyColorToHighPriority(itemView.findViewById(R.id.buttonHighPriority), task.isHighPriority)
+
                 textDate.text = DateHelper.calculateTimeAgo(task.createdAt)
 
                 checkIsDone.isChecked = task.isDone
@@ -50,14 +56,18 @@ class TaskAdapter(val listener: Listener) : ListAdapter<Task, TaskAdapter.TaskVi
                 setOnClickListener {
                     listener.onTaskClicked(task)
                 }
+
                 setOnLongClickListener {
                     listener.onTaskLongClicked(task)
                     true
                 }
-                checkIsDone.setOnCheckedChangeListener { view, isChecked ->
+
+                checkIsDone.setOnClickListener {
+                    val isChecked = (it as CheckBox).isChecked
+
                     listener.onTaskMarked(task, isChecked)
 
-                    view.animate()
+                    it.animate()
                         .rotationBy(360f)
                         .setDuration(300)
                         .setInterpolator(FastOutSlowInInterpolator())
@@ -65,6 +75,20 @@ class TaskAdapter(val listener: Listener) : ListAdapter<Task, TaskAdapter.TaskVi
 
                     executeAnimation(itemView, isChecked)
                 }
+
+                buttonHighPriority.setOnClickListener {
+                    val isHighPriority = !task.isHighPriority
+
+                    listener.onTaskHighPriorityMarked(task, isHighPriority)
+                }
+            }
+        }
+
+        private fun applyColorToHighPriority(view: IconButton, isHighPriority: Boolean) {
+            if (isHighPriority) {
+                view.setColorDrawable(Color.RED)
+            } else {
+                view.setColorDrawable(Color.WHITE)
             }
         }
 

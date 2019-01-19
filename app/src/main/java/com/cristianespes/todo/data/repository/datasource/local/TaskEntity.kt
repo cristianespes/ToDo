@@ -13,5 +13,7 @@ data class TaskEntity(
     @ColumnInfo(name = "created_at")
     val createdAt: Date,
     @ColumnInfo(name = "is_done")
-    val isDone: Boolean
+    val isDone: Boolean,
+    @ColumnInfo(name = "is_high_priority")
+    val isHighPriority: Boolean
 )

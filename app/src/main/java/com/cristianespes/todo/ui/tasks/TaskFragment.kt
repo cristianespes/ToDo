@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.cristianespes.todo.R
 import com.cristianespes.todo.data.model.Task
+import com.cristianespes.todo.util.Navigator
 import com.cristianespes.todo.util.bottomsheet.BottomMenuItem
 import com.cristianespes.todo.util.bottomsheet.BottomSheetMenu
 import kotlinx.android.synthetic.main.fragment_tasks.*
@@ -46,19 +47,7 @@ class TaskFragment: Fragment(), TaskAdapter.Listener {
             tasksEvent.observe(this@TaskFragment, Observer { tasks ->
                 adapter.submitList(tasks)
             })
-
-            taskUpdatedEvent.observe(this@TaskFragment, Observer {
-                it.getContentIfNotHandled()?.let { updatedTask ->
-
-                }
-            })
         }
-    }
-
-    override fun onResume() {
-        super.onResume()
-
-        taskViewModel.loadTasks()
     }
 
     private fun setUpRecycler() {
@@ -73,6 +62,9 @@ class TaskFragment: Fragment(), TaskAdapter.Listener {
 
     override fun onTaskLongClicked(task: Task) {
         val items = arrayListOf(
+            BottomMenuItem(R.drawable.ic_edit, getString(R.string.edit)) {
+                Navigator.navigateToEditTaskFragment(task, childFragmentManager)
+            },
             BottomMenuItem(R.drawable.ic_delete, getString(R.string.delete)) {
                 showConfirmDeleteTaskDialog(task)
             }
@@ -99,5 +91,9 @@ class TaskFragment: Fragment(), TaskAdapter.Listener {
         } else {
             taskViewModel.markAsNotDone(task)
         }
+    }
+
+    override fun onTaskHighPriorityMarked(task: Task, isHighPriority: Boolean) {
+        taskViewModel.markHighPriority(task, isHighPriority)
     }
 }

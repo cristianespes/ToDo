@@ -4,6 +4,7 @@ import com.cristianespes.todo.data.model.Task
 import com.cristianespes.todo.data.model.mapper.TaskEntityMapper
 import com.cristianespes.todo.data.model.mapper.TaskMapper
 import com.cristianespes.todo.data.repository.TaskDataSource
+import io.reactivex.Flowable
 import io.reactivex.Single
 
 class LocalDataSource(val toDoDatabase: ToDoDatabase,
@@ -13,6 +14,12 @@ class LocalDataSource(val toDoDatabase: ToDoDatabase,
         toDoDatabase
             .getTaskDao()
             .getAll()
+            .map { taskMapper.transformList(it) }
+
+    override fun observeAll(): Flowable<List<Task>> =
+        toDoDatabase
+            .getTaskDao()
+            .observeAll()
             .map { taskMapper.transformList(it) }
 
     override fun getTaskById(taskId: Long): Single<Task> =

@@ -14,7 +14,8 @@ class DateHelperTest {
 
         val result = DateHelper.calculateTimeAgo(date.toDate())
 
-        Assert.assertEquals("1 hour", result)
+        //Assert.assertEquals("1 hour", result)
+        Assert.assertEquals("1 hour ago", result)
     }
 
     @Test
@@ -23,7 +24,16 @@ class DateHelperTest {
 
         val result = DateHelper.calculateTimeAgo(date.toDate())
 
-        Assert.assertEquals("0 minutes", result)
+        //Assert.assertEquals("0 minutes", result)
+        Assert.assertEquals("moments from now", result)
     }
 
+    @Test
+    fun `Test a date period which has passed two weeks should retrieve `() {
+        val date = DateTime.now().minusWeeks(2)
+
+        val result = DateHelper.calculateTimeAgo(date.toDate())
+
+        Assert.assertEquals("2 weeks ago", result)
+    }
 }

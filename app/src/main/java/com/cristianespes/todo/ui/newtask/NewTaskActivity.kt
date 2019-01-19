@@ -38,7 +38,7 @@ class NewTaskActivity : BaseActivity() {
 
     private fun bindActions() {
         buttonSaveTask.setOnClickListener {
-            taskViewModel.addNewTask(inputTaskContent.text.toString())
+            taskViewModel.addNewTask(inputTaskContent.text.toString(), checkHighPriority.isChecked)
         }
     }
 

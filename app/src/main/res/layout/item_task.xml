@@ -18,14 +18,14 @@
             android:id="@+id/textContent"
             android:layout_marginTop="16dp"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="16dp"
-            app:layout_constraintEnd_toStartOf="@+id/checkIsDone"
-            android:layout_marginEnd="16dp"
             android:maxLines="3"
             android:ellipsize="end"
             tools:text="Lorem ipsum amet apd pawd po  pdoawk dap widj a oijda jdoiawj wioadj aw joiaj dowia dam awlkdm wad"
-            style="@style/TaskContent"/>
+            style="@style/TaskContent"
+            app:layout_constraintStart_toEndOf="@+id/buttonHighPriority"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintEnd_toStartOf="@+id/checkIsDone"
+            android:layout_marginStart="8dp"/>
 
     <CheckBox
             android:layout_width="wrap_content"
@@ -33,20 +33,31 @@
             android:id="@+id/checkIsDone"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginEnd="16dp"
-            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:checked="false"/>
+            android:checked="false"
+            app:layout_constraintTop_toTopOf="parent"/>
 
     <TextView
             android:layout_width="0dp"
             android:layout_height="20dp"
             android:id="@+id/textDate"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             app:layout_constraintTop_toBottomOf="@+id/textContent"
             app:layout_constraintEnd_toStartOf="@+id/checkIsDone"
             android:layout_marginEnd="16dp"
             tools:text="Hace 20 minutos"
-            style="@style/TaskDate"/>
+            style="@style/TaskDate"
+            app:layout_constraintStart_toStartOf="@+id/textContent"/>
+
+    <com.cristianespes.todo.util.IconButton
+            android:id="@+id/buttonHighPriority"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="16dp"
+            style="@style/IconButton"
+            app:srcCompat="@drawable/ic_high_priority"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

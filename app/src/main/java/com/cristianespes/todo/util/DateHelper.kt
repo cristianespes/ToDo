@@ -5,11 +5,12 @@ import org.joda.time.Period
 import org.joda.time.PeriodType
 import org.joda.time.format.ISOPeriodFormat
 import org.joda.time.format.PeriodFormat
+import org.ocpsoft.prettytime.PrettyTime
 import java.util.*
 
 object DateHelper {
 
-    fun calculateTimeAgo(date: Date) : String {
+    /*fun calculateTimeAgo(date: Date) : String {
         val past = DateTime(date.time) // pasado
         val now = DateTime.now() // actual
 
@@ -24,6 +25,9 @@ object DateHelper {
         val timeAgo = formatter.print(period)
 
         return timeAgo
-    }
+    }*/
 
+    val prettyTime by lazy { PrettyTime() }
+
+    fun calculateTimeAgo(date: Date): String = prettyTime.format(date)
 }

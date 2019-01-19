@@ -2,10 +2,13 @@ package com.cristianespes.todo.data.repository
 
 import com.cristianespes.todo.data.model.Task
 import com.cristianespes.todo.data.repository.datasource.local.LocalDataSource
+import io.reactivex.Flowable
 import io.reactivex.Single
 
 class TaskRepositoryImpl(val localDataSource: LocalDataSource): TaskRepository {
     override fun getAll(): Single<List<Task>> = localDataSource.getAll()
+
+    override fun observeAll(): Flowable<List<Task>> = localDataSource.observeAll()
 
     override fun getTaskById(taskId: Long): Single<Task> = localDataSource.getTaskById(taskId)
 

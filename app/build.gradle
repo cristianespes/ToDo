@@ -50,6 +50,10 @@ dependencies {
 
     implementation 'com.jakewharton.rxbinding3:rxbinding:3.0.0-alpha2'
 
+    implementation 'com.facebook.stetho:stetho:1.5.0'
+
+    implementation 'org.ocpsoft.prettytime:prettytime:4.0.1.Final'
+
     implementation 'org.koin:koin-android:1.0.1'
     implementation 'org.koin:koin-android-viewmodel:1.0.2' // ViewModel, para inyección de dependencias desde koin
 

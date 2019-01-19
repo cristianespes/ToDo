@@ -28,4 +28,9 @@
         <item name="android:textColor">@color/colorSecondaryText</item>
     </style>
 
+    <style name="IconButton">
+        <item name="android:background">?selectableItemBackgroundBorderless</item>
+        <item name="android:scaleType">fitXY</item>
+    </style>
+
 </resources>

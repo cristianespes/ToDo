@@ -10,4 +10,7 @@
     <string name="yes">Yes</string>
     <string name="delete_task_title">Are you sure?</string>
     <string name="delete_task_message">Task will be deleted forever. You can\'t bring it back</string>
+    <string name="edit">Edit</string>
+    <string name="edit_task_input_hint">Edit task content</string>
+    <string name="new_task_is_high_priority">High priority</string>
 </resources>

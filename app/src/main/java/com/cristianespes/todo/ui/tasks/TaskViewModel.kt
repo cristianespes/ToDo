@@ -17,6 +17,7 @@ import java.util.*
 class TaskViewModel(val taskRepository: TaskRepository) : BaseViewModel() {
 
     val tasksEvent = MutableLiveData<List<Task>>()
+
     val newTaskAddedEvent = MutableLiveData<Event<Unit>>()
     val taskUpdatedEvent = MutableLiveData<Event<Task>>()
 
@@ -26,11 +27,11 @@ class TaskViewModel(val taskRepository: TaskRepository) : BaseViewModel() {
 
     fun loadTasks() {
         taskRepository
-            .getAll()
+            .observeAll()
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeBy(
-                onSuccess = { tasks ->
+                onNext = { tasks ->
                     tasksEvent.value = tasks
                 },
                 onError = {
@@ -39,8 +40,8 @@ class TaskViewModel(val taskRepository: TaskRepository) : BaseViewModel() {
             ).addTo(compositeDisposable)
     }
 
-    fun addNewTask(taskContent: String) {
-        val newTask = Task(0, taskContent, Date(), false)
+    fun addNewTask(taskContent: String, isHighPriority: Boolean) {
+        val newTask = Task(0, taskContent, Date(), false, isHighPriority)
 
         Completable.fromCallable {
             taskRepository.insert(newTask)
@@ -66,7 +67,6 @@ class TaskViewModel(val taskRepository: TaskRepository) : BaseViewModel() {
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeBy(
                 onComplete = {
-                    loadTasks()
                 },
                 onError = {
                     Log.e("TaskViewModel", "$it")
@@ -93,7 +93,12 @@ class TaskViewModel(val taskRepository: TaskRepository) : BaseViewModel() {
         updateTask(newTask)
     }
 
-    private fun updateTask(task: Task) {
+    fun markHighPriority(task: Task, highPriority: Boolean) {
+        val newTask = task.copy(isHighPriority = highPriority)
+        updateTask(newTask)
+    }
+
+    fun updateTask(task: Task) {
         Completable.fromCallable {
             taskRepository.update(task)
         }
