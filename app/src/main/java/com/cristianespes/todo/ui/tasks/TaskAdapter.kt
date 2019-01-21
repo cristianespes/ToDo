@@ -87,8 +87,10 @@ class TaskAdapter(val listener: Listener) : ListAdapter<Task, TaskAdapter.TaskVi
         private fun applyColorToHighPriority(view: IconButton, isHighPriority: Boolean) {
             if (isHighPriority) {
                 view.setColorDrawable(Color.RED)
+                view.setImageResource(R.drawable.ic_high_priority)
             } else {
                 view.setColorDrawable(Color.WHITE)
+                view.setImageResource(R.drawable.ic_low_priority)
             }
         }
 
