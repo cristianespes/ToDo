@@ -33,10 +33,6 @@ class MainActivity : BaseActivity() {
             .beginTransaction()
             .replace(R.id.fragmentContainer, TaskFragment())
             .commit()
-
-        /*supportFragmentManager.transaction {
-            replace(R.id.fragmentContainer, TaskFragment())
-        }*/
     }
 
     private fun bindActions() {
