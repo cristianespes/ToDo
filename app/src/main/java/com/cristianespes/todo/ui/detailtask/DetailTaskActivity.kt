@@ -3,11 +3,14 @@ package com.cristianespes.todo.ui.detailtask
 import android.os.Bundle
 import android.util.Log
 import android.view.Menu
+import android.view.MenuItem
+import androidx.appcompat.app.AlertDialog
 import androidx.core.os.ConfigurationCompat
 import com.cristianespes.todo.R
 import com.cristianespes.todo.data.model.Task
 import com.cristianespes.todo.ui.base.BaseActivity
 import com.cristianespes.todo.ui.tasks.TaskViewModel
+import com.cristianespes.todo.util.Navigator
 import kotlinx.android.synthetic.main.activity_detail_task.*
 import org.koin.android.viewmodel.ext.android.viewModel
 import java.text.SimpleDateFormat
@@ -46,6 +49,19 @@ class DetailTaskActivity : BaseActivity() {
         return super.onCreateOptionsMenu(menu)
     }
 
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+
+        item.takeIf { item?.itemId == R.id.action_edit }?.let { _ ->
+            // TODO: IMPLEMENTNAR EDITAR
+        }
+
+        item.takeIf { item?.itemId == R.id.action_delete }?.let { _ ->
+            showConfirmDeleteTaskDialog()
+        }
+
+        return super.onOptionsItemSelected(item)
+    }
+
     private fun setupViews() {
         titleDetailTask.text = task.content
 
@@ -66,5 +82,17 @@ class DetailTaskActivity : BaseActivity() {
         }
     }
 
+    private fun showConfirmDeleteTaskDialog() {
+        AlertDialog.Builder(this)
+            .setTitle(R.string.delete_task_title)
+            .setMessage(R.string.delete_task_message)
+            .setPositiveButton(getString(R.string.yes)) { _, _ ->
+                taskViewModel.deleteTask(task)
+                finish()
+            }
+            .setNegativeButton(getString(R.string.no), null)
+            .create()
+            .show()
+    }
 
 }
