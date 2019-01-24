@@ -1,5 +1,6 @@
 package com.cristianespes.todo.ui.edittask
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,7 +13,13 @@ import com.cristianespes.todo.util.BottomSheetDialog
 import org.koin.android.viewmodel.ext.android.viewModel
 import kotlinx.android.synthetic.main.fragment_edit_task.*
 
-class EditTaskFragment : BottomSheetDialog() {
+class EditTaskFragment: BottomSheetDialog() {
+
+    interface UpdatedTask {
+        fun updatedTaskText(taskText: String)
+    }
+
+    var listener: UpdatedTask? = null
 
     companion object {
         const val PARAM_TASK = "task"
@@ -45,6 +52,14 @@ class EditTaskFragment : BottomSheetDialog() {
         setUp()
     }
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+
+        if (context is UpdatedTask) {
+            listener = context // Inicializar el listener
+        }
+    }
+
     private fun setUp() {
         fillData()
         bindEvents()
@@ -54,6 +69,7 @@ class EditTaskFragment : BottomSheetDialog() {
     private fun bindEvents() {
         with (taskViewModel) {
             taskUpdatedEvent.observe(this@EditTaskFragment, Observer {
+                listener?.updatedTaskText(inputTaskContent.text.toString())
                 dismiss()
             })
         }

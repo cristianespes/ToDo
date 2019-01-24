@@ -6,6 +6,7 @@ import androidx.core.os.ConfigurationCompat
 import androidx.fragment.app.Fragment
 import com.cristianespes.todo.R
 import com.cristianespes.todo.data.model.Task
+import com.cristianespes.todo.ui.edittask.EditTaskFragment
 import com.cristianespes.todo.ui.tasks.TaskViewModel
 import kotlinx.android.synthetic.main.fragment_detail_task.*
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -38,12 +39,12 @@ class DetailTaskFragment: Fragment() {
         task = arguments?.let {
             it.getParcelable(PARAM_TASK)
         }
-        if (task == null) {
-            // TODO: SI NO HAY TAREA
-            //finish()
-        }
 
-        setUp()
+        task?.let {
+            setUp()
+        }?: run {
+            activity!!.finish()
+        }
     }
 
     private fun setUp() {
@@ -66,6 +67,10 @@ class DetailTaskFragment: Fragment() {
             }
         }
 
+    }
+
+    fun updateTask(newText: String) {
+        titleDetailTask.text = newText
     }
 
 }

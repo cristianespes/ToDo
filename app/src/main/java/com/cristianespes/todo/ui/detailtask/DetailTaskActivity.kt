@@ -1,17 +1,21 @@
 package com.cristianespes.todo.ui.detailtask
 
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AlertDialog
 import com.cristianespes.todo.R
 import com.cristianespes.todo.data.model.Task
 import com.cristianespes.todo.ui.base.BaseActivity
+import com.cristianespes.todo.ui.edittask.EditTaskFragment
 import com.cristianespes.todo.ui.tasks.TaskViewModel
+import com.cristianespes.todo.util.Navigator
 import org.koin.android.viewmodel.ext.android.viewModel
 
-class DetailTaskActivity : BaseActivity() {
+class DetailTaskActivity : BaseActivity(), EditTaskFragment.UpdatedTask {
+    override fun updatedTaskText(taskText: String) {
+        detailTaskFragment.updateTask(taskText)
+    }
 
     companion object {
         const val PARAM_TASK = "task"
@@ -20,6 +24,8 @@ class DetailTaskActivity : BaseActivity() {
     val taskViewModel: TaskViewModel by viewModel()
 
     lateinit var task: Task
+
+    private lateinit var detailTaskFragment: DetailTaskFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,8 +38,6 @@ class DetailTaskActivity : BaseActivity() {
 
         if (bundle != null) {
             task = bundle.get(DetailTaskActivity.PARAM_TASK) as Task
-
-            Log.d("Patata", "Tarea ${task.content}")
         }
 
         setUp()
@@ -48,7 +52,7 @@ class DetailTaskActivity : BaseActivity() {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
 
         item.takeIf { item?.itemId == R.id.action_edit }?.let { _ ->
-            // TODO: IMPLEMENTNAR EDITAR
+            Navigator.navigateToEditTaskFragment(task, supportFragmentManager)
         }
 
         item.takeIf { item?.itemId == R.id.action_delete }?.let { _ ->
@@ -59,7 +63,7 @@ class DetailTaskActivity : BaseActivity() {
     }
 
     private fun setUp() {
-        val detailTaskFragment = DetailTaskFragment.newInstance(task)
+        detailTaskFragment = DetailTaskFragment.newInstance(task)
 
         supportFragmentManager
             .beginTransaction()
