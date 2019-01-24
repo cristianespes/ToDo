@@ -7,7 +7,9 @@ import androidx.core.os.ConfigurationCompat
 import com.cristianespes.todo.R
 import com.cristianespes.todo.data.model.Task
 import com.cristianespes.todo.ui.base.BaseActivity
+import com.cristianespes.todo.ui.tasks.TaskViewModel
 import kotlinx.android.synthetic.main.activity_detail_task.*
+import org.koin.android.viewmodel.ext.android.viewModel
 import java.text.SimpleDateFormat
 
 class DetailTaskActivity : BaseActivity() {
@@ -15,6 +17,8 @@ class DetailTaskActivity : BaseActivity() {
     companion object {
         const val PARAM_TASK = "task"
     }
+
+    val taskViewModel: TaskViewModel by viewModel()
 
     lateinit var task: Task
 
@@ -50,5 +54,17 @@ class DetailTaskActivity : BaseActivity() {
 
         checkIsDoneDetailTask.isChecked = task.isDone
         isDoneDetailTask.text = getString(R.string.finished)
+
+        checkIsDoneDetailTask.setOnCheckedChangeListener { compoundButton, b ->
+            val isDone = compoundButton.isChecked
+
+            if (isDone) {
+                taskViewModel.markAsDone(task)
+            } else {
+                taskViewModel.markAsNotDone(task)
+            }
+        }
     }
+
+
 }
