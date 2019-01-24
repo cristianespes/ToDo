@@ -5,15 +5,11 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AlertDialog
-import androidx.core.os.ConfigurationCompat
 import com.cristianespes.todo.R
 import com.cristianespes.todo.data.model.Task
 import com.cristianespes.todo.ui.base.BaseActivity
 import com.cristianespes.todo.ui.tasks.TaskViewModel
-import com.cristianespes.todo.util.Navigator
-import kotlinx.android.synthetic.main.activity_detail_task.*
 import org.koin.android.viewmodel.ext.android.viewModel
-import java.text.SimpleDateFormat
 
 class DetailTaskActivity : BaseActivity() {
 
@@ -40,7 +36,7 @@ class DetailTaskActivity : BaseActivity() {
             Log.d("Patata", "Tarea ${task.content}")
         }
 
-        setupViews()
+        setUp()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -62,24 +58,13 @@ class DetailTaskActivity : BaseActivity() {
         return super.onOptionsItemSelected(item)
     }
 
-    private fun setupViews() {
-        titleDetailTask.text = task.content
+    private fun setUp() {
+        val detailTaskFragment = DetailTaskFragment.newInstance(task)
 
-        imageDetailTask.setImageResource(R.drawable.ic_task_calendar)
-        dateDetailTask.text = SimpleDateFormat("dd/MM/yyyy", ConfigurationCompat.getLocales(resources.configuration)[0]).format(task.createdAt)
-
-        checkIsDoneDetailTask.isChecked = task.isDone
-        isDoneDetailTask.text = getString(R.string.finished)
-
-        checkIsDoneDetailTask.setOnCheckedChangeListener { compoundButton, b ->
-            val isDone = compoundButton.isChecked
-
-            if (isDone) {
-                taskViewModel.markAsDone(task)
-            } else {
-                taskViewModel.markAsNotDone(task)
-            }
-        }
+        supportFragmentManager
+            .beginTransaction()
+            .replace(R.id.fragmentContainer, detailTaskFragment)
+            .commit()
     }
 
     private fun showConfirmDeleteTaskDialog() {

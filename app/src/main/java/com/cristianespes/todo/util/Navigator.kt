@@ -5,6 +5,7 @@ import android.content.Intent
 import androidx.fragment.app.FragmentManager
 import com.cristianespes.todo.data.model.Task
 import com.cristianespes.todo.ui.detailtask.DetailTaskActivity
+import com.cristianespes.todo.ui.detailtask.DetailTaskFragment
 import com.cristianespes.todo.ui.edittask.EditTaskFragment
 import com.cristianespes.todo.ui.newtask.NewTaskActivity
 
