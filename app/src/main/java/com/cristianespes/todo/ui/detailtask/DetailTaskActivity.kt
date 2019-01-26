@@ -8,7 +8,7 @@ import com.cristianespes.todo.R
 import com.cristianespes.todo.data.model.Task
 import com.cristianespes.todo.ui.base.BaseActivity
 import com.cristianespes.todo.ui.edittask.EditTaskFragment
-import com.cristianespes.todo.ui.tasks.TaskViewModel
+import com.cristianespes.todo.ui.viewmodel.TaskViewModel
 import com.cristianespes.todo.util.Navigator
 import org.koin.android.viewmodel.ext.android.viewModel
 

@@ -1,9 +1,8 @@
-package com.cristianespes.todo.ui
+package com.cristianespes.todo.ui.taskslist
 
 import android.os.Bundle
 import com.cristianespes.todo.R
 import com.cristianespes.todo.ui.base.BaseActivity
-import com.cristianespes.todo.ui.tasks.TaskFragment
 import com.cristianespes.todo.util.Navigator
 import com.jakewharton.rxbinding3.view.clicks
 import io.reactivex.disposables.CompositeDisposable
@@ -11,7 +10,7 @@ import io.reactivex.rxkotlin.addTo
 import kotlinx.android.synthetic.main.activity_main.*
 import java.util.concurrent.TimeUnit
 
-class MainActivity : BaseActivity() {
+class TasksListActivity : BaseActivity() {
 
     private val compositeDisposable = CompositeDisposable()
 
@@ -31,7 +30,7 @@ class MainActivity : BaseActivity() {
 
         supportFragmentManager
             .beginTransaction()
-            .replace(R.id.fragmentContainer, TaskFragment())
+            .replace(R.id.fragmentContainer, TasksListFragment())
             .commit()
     }
 

@@ -1,4 +1,4 @@
-package com.cristianespes.todo.ui.tasks
+package com.cristianespes.todo.ui.adapter
 
 import androidx.recyclerview.widget.DiffUtil
 import com.cristianespes.todo.data.model.Task
@@ -6,7 +6,8 @@ import com.cristianespes.todo.data.model.Task
 class TaskDiffUtil : DiffUtil.ItemCallback<Task>() {
 
     companion object {
-        fun getInstance(): TaskDiffUtil = TaskDiffUtil()
+        fun getInstance(): TaskDiffUtil =
+            TaskDiffUtil()
     }
 
     override fun areItemsTheSame(oldItem: Task, newItem: Task): Boolean =

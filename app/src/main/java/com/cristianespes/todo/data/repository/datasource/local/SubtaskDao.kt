@@ -7,10 +7,10 @@ import io.reactivex.Single
 @Dao
 abstract class SubtaskDao {
 
-    @Query("SELECT * FROM subtasks ORDER BY id DESC")
+    @Query("SELECT * FROM subtasks ORDER BY is_done DESC, id DESC")
     abstract fun getAllSubtask(): Single<List<SubtaskEntity>>
 
-    @Query("SELECT * FROM subtasks ORDER BY id DESC")
+    @Query("SELECT * FROM subtasks ORDER BY is_done DESC, id DESC")
     abstract fun observeAllSubtask(): Flowable<List<SubtaskEntity>>
 
     @Query("SELECT * FROM subtasks WHERE taskId = :taskId ORDER BY id DESC")

@@ -12,8 +12,8 @@ import com.cristianespes.todo.data.repository.TaskRepositoryImpl
 import com.cristianespes.todo.data.repository.datasource.local.LocalDataSource
 import com.cristianespes.todo.data.repository.datasource.local.LocalSubtaskDataSource
 import com.cristianespes.todo.data.repository.datasource.local.ToDoDatabase
-import com.cristianespes.todo.ui.tasks.SubtaskViewModel
-import com.cristianespes.todo.ui.tasks.TaskViewModel
+import com.cristianespes.todo.ui.viewmodel.SubtaskViewModel
+import com.cristianespes.todo.ui.viewmodel.TaskViewModel
 import org.koin.android.ext.koin.androidContext
 import org.koin.android.viewmodel.ext.koin.viewModel
 import org.koin.dsl.module.module
