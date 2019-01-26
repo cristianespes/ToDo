@@ -15,6 +15,9 @@ import com.cristianespes.todo.data.model.Task
 import com.cristianespes.todo.ui.adapter.SubtaskAdapter
 import com.cristianespes.todo.ui.viewmodel.SubtaskViewModel
 import com.cristianespes.todo.ui.viewmodel.TaskViewModel
+import com.cristianespes.todo.util.Navigator
+import com.cristianespes.todo.util.bottomsheet.BottomMenuItem
+import com.cristianespes.todo.util.bottomsheet.BottomSheetMenu
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_detail_task.*
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -22,11 +25,17 @@ import java.text.SimpleDateFormat
 
 class DetailTaskFragment: Fragment(), SubtaskAdapter.Listener {
     override fun onSubtaskClicked(subtask: Subtask) {
-        Log.d("Patata", "onTaskClicked en ${subtask.content}")
+        Navigator.navigateToSubtaskMenuFragment(subtask, childFragmentManager)
     }
 
     override fun onSubtaskLongClicked(subtask: Subtask) {
-        deleteSubtaskDialog(subtask)
+        val items = arrayListOf(
+            BottomMenuItem(R.drawable.ic_delete, getString(R.string.delete)) {
+                deleteSubtaskDialog(subtask)
+            }
+        )
+
+        BottomSheetMenu(activity!!, items).show()
     }
 
     override fun onSubtaskMarked(subtask: Subtask, isDone: Boolean) {
