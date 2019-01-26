@@ -18,4 +18,10 @@
     <string name="add_subtask">Add subtask</string>
     <string name="subtask_deleted">Subtask was deleted</string>
     <string name="undo">Undo</string>
+    <string name="accept">Accept</string>
+    <string name="task_empty">Task empty</string>
+    <string name="content_in_task">To save the task you must describe the content</string>
+    <string name="subtask_empty">Subtask empty</string>
+    <string name="content_in_subtask">To save the subtask you must describe the content</string>
+    <string name="cancel">Cancelar</string>
 </resources>

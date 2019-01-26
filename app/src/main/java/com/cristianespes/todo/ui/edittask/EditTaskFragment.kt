@@ -86,11 +86,25 @@ class EditTaskFragment: BottomSheetDialog() {
 
     private fun bindActions() {
         buttonSaveTask.setOnClickListener {
-            val newTask = task!!.copy(
-                content = inputTaskContent.text.toString(),
-                isHighPriority = checkHighPriority.isChecked)
+            val textContent = inputTaskContent.text.toString()
 
-            taskViewModel.updateTask(newTask)
+            if (!textContent.isEmpty()) {
+                val newTask = task!!.copy(
+                    content = inputTaskContent.text.toString(),
+                    isHighPriority = checkHighPriority.isChecked)
+
+                taskViewModel.updateTask(newTask)
+            } else {
+                androidx.appcompat.app.AlertDialog.Builder(activity!!)
+                    .setTitle(getString(R.string.task_empty))
+                    .setMessage(getString(R.string.content_in_task))
+                    .setPositiveButton(getString(R.string.accept), null)
+                    .setNegativeButton(getString(R.string.cancel)) { _, _ ->
+                        dismiss()
+                    }
+                    .create()
+                    .show()
+            }
         }
     }
 

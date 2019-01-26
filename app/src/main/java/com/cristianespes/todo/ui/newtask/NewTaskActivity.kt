@@ -1,6 +1,7 @@
 package com.cristianespes.todo.ui.newtask
 
 import android.app.Activity
+import android.app.AlertDialog
 import android.os.Bundle
 import androidx.lifecycle.Observer
 import com.cristianespes.todo.R
@@ -38,7 +39,20 @@ class NewTaskActivity : BaseActivity() {
 
     private fun bindActions() {
         buttonSaveTask.setOnClickListener {
-            taskViewModel.addNewTask(inputTaskContent.text.toString(), checkHighPriority.isChecked)
+            val textContent = inputTaskContent.text.toString()
+
+            if (!textContent.isEmpty())
+                taskViewModel.addNewTask(textContent, checkHighPriority.isChecked)
+            else
+                androidx.appcompat.app.AlertDialog.Builder(this)
+                    .setTitle(getString(R.string.task_empty))
+                    .setMessage(getString(R.string.content_in_task))
+                    .setPositiveButton(getString(R.string.accept), null)
+                    .setNegativeButton(getString(R.string.cancel)) { _, _ ->
+                        finish()
+                    }
+                    .create()
+                    .show()
         }
     }
 

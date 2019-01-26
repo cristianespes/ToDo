@@ -71,10 +71,24 @@ class EditSubtaskFragment: BottomSheetDialog() {
 
     private fun bindActions() {
         buttonSaveTask.setOnClickListener {
-            val newSubtask = subtask!!.copy(
-                content = inputTaskContent.text.toString())
+            val textContent = inputTaskContent.text.toString()
 
-            subtaskViewModel.updateSubtask(newSubtask)
+            if (!textContent.isEmpty()) {
+                val newSubtask = subtask!!.copy(
+                    content = inputTaskContent.text.toString())
+
+                subtaskViewModel.updateSubtask(newSubtask)
+            } else {
+                androidx.appcompat.app.AlertDialog.Builder(activity!!)
+                    .setTitle(getString(R.string.subtask_empty))
+                    .setMessage(getString(R.string.content_in_subtask))
+                    .setPositiveButton(getString(R.string.accept), null)
+                    .setNegativeButton(getString(R.string.cancel)) { _, _ ->
+                        dismiss()
+                    }
+                    .create()
+                    .show()
+            }
         }
     }
 
