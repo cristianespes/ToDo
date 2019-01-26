@@ -3,8 +3,10 @@ package com.cristianespes.todo.util
 import android.content.Context
 import android.util.AttributeSet
 import androidx.appcompat.widget.AppCompatImageButton
+import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.DrawableCompat
 import androidx.core.view.TintableBackgroundView
+import com.cristianespes.todo.R
 
 class IconButton @JvmOverloads constructor(
     context: Context,
@@ -19,8 +21,14 @@ class IconButton @JvmOverloads constructor(
         changeTouchableArea(touchableArea)
     }
 
-    fun setColorDrawable(color: Int) {
-        DrawableCompat.setTint(drawable, color)
+    fun setColorDrawable(color: Int, drawable: Int) {
+        val newDrawable = ContextCompat.getDrawable(context, drawable)
+
+        newDrawable?.let {
+            val finalDrawable = DrawableCompat.wrap(it)
+            DrawableCompat.setTint(finalDrawable.mutate(), color)
+            setImageDrawable(finalDrawable)
+        }
     }
 
 }

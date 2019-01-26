@@ -13,8 +13,13 @@ abstract class BaseActivity : AppCompatActivity() {
         }
 
         setSupportActionBar(toolbar)
-        supportActionBar?.setHomeButtonEnabled(homeIsEnabled)
-        supportActionBar?.setDisplayShowHomeEnabled(homeIsEnabled)
+        supportActionBar!!.setDisplayHomeAsUpEnabled(homeIsEnabled) // Back Button
+    }
+
+    // Back View
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
     }
 
 }

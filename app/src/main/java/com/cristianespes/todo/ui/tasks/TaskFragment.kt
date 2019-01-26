@@ -57,7 +57,7 @@ class TaskFragment: Fragment(), TaskAdapter.Listener {
     }
 
     override fun onTaskClicked(task: Task) {
-        // TODO navigate to detail
+        Navigator.navigateToDetailTaskActivity(activity!!, task)
     }
 
     override fun onTaskLongClicked(task: Task) {

@@ -11,7 +11,7 @@
     </style>
 
     <style name="Dialog" parent="Theme.Design.BottomSheetDialog">
-
+        <item name="colorAccent">@color/colorAccent</item>
     </style>
 
     <style name="MyToolbar">
