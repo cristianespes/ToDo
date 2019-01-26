@@ -19,9 +19,9 @@ import kotlinx.android.synthetic.main.item_subtask.view.*
 class SubtaskAdapter(val listener: Listener) : ListAdapter<Subtask, SubtaskAdapter.SubtaskViewHolder>(SubtaskDiffUtil.getInstance()) {
 
     interface Listener {
-        fun onTaskClicked(subtask: Subtask)
-        fun onTaskMarked(subtask: Subtask, isDone: Boolean)
-        fun onTaskLongClicked(subtask: Subtask)
+        fun onSubtaskClicked(subtask: Subtask)
+        fun onSubtaskMarked(subtask: Subtask, isDone: Boolean)
+        fun onSubtaskLongClicked(subtask: Subtask)
     }
 
 
@@ -50,18 +50,18 @@ class SubtaskAdapter(val listener: Listener) : ListAdapter<Subtask, SubtaskAdapt
                 checkIsDone.isChecked = subtask.isDone
 
                 setOnClickListener {
-                    listener.onTaskClicked(subtask)
+                    listener.onSubtaskClicked(subtask)
                 }
 
                 setOnLongClickListener {
-                    listener.onTaskLongClicked(subtask)
+                    listener.onSubtaskLongClicked(subtask)
                     true
                 }
 
                 checkIsDone.setOnClickListener {
                     val isChecked = (it as CheckBox).isChecked
 
-                    listener.onTaskMarked(subtask, isChecked)
+                    listener.onSubtaskMarked(subtask, isChecked)
 
                     it.animate()
                         .rotationBy(360f)
