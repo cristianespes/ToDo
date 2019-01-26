@@ -1,6 +1,7 @@
 package com.cristianespes.todo.ui.tasks
 
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -21,6 +22,7 @@ import org.koin.android.viewmodel.ext.android.viewModel
 class TaskFragment: Fragment(), TaskAdapter.Listener {
 
     val taskViewModel: TaskViewModel by viewModel() // Lo cojemos del inyector de dependencias
+    val subtaskViewModel: SubtaskViewModel by viewModel()
 
     val adapter: TaskAdapter by lazy {
         TaskAdapter(this)
@@ -48,6 +50,15 @@ class TaskFragment: Fragment(), TaskAdapter.Listener {
                 adapter.submitList(tasks)
             })
         }
+
+        // Ejemplo para obtener las subtareas de una tarea
+        subtaskViewModel.loadSubtasksByTaskId(2)
+        with (subtaskViewModel) {
+            subtasksEvent.observe(this@TaskFragment, Observer { subtasks ->
+                Log.d("PATATA", subtasks.toString())
+            })
+        }
+
     }
 
     private fun setUpRecycler() {

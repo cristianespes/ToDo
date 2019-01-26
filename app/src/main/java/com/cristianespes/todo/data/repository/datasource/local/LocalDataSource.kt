@@ -34,6 +34,11 @@ class LocalDataSource(val toDoDatabase: ToDoDatabase,
         toDoDatabase
             .getTaskDao()
             .insert(taskEntity)
+
+        // Eliminar
+        /*toDoDatabase
+            .getSubtaskDao()
+            .insert(SubtaskEntity(1, "Subtarea de la tarea", false, 1))*/
     }
 
     override fun delete(task: Task) {

@@ -6,19 +6,22 @@ import android.os.Parcelable
 data class Subtask(
     val id: Long,
     val content: String,
-    val isDone: Boolean
+    val isDone: Boolean,
+    val taskId: Long
 ) : Parcelable {
 
     constructor(parcel: Parcel) : this(
         parcel.readLong(),
         parcel.readString()!!,
-        parcel.readByte() != 0.toByte()
+        parcel.readByte() != 0.toByte(),
+        parcel.readLong()
     )
 
     override fun writeToParcel(parcel: Parcel, flags: Int) {
         parcel.writeLong(id)
         parcel.writeString(content)
         parcel.writeByte(if (isDone) 1 else 0)
+        parcel.writeLong(taskId)
     }
 
     override fun describeContents(): Int {

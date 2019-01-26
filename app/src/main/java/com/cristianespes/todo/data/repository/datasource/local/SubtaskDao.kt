@@ -13,8 +13,14 @@ abstract class SubtaskDao {
     @Query("SELECT * FROM subtasks ORDER BY id DESC")
     abstract fun observeAllSubtask(): Flowable<List<SubtaskEntity>>
 
-    @Query("SELECT * FROM subtasks WHERE taskId = :taskId")
-    abstract fun getSubtaskByTaskId(taskId: Long): Single<SubtaskEntity>
+    @Query("SELECT * FROM subtasks WHERE taskId = :taskId ORDER BY id DESC")
+    abstract fun getAllSubtaskByTaskId(taskId: Long): Single<List<SubtaskEntity>>
+
+    @Query("SELECT * FROM subtasks WHERE taskId = :taskId ORDER BY id DESC")
+    abstract fun observeAllSubtaskByTaskId(taskId: Long): Flowable<List<SubtaskEntity>>
+
+    @Query("SELECT * FROM subtasks WHERE id = :id")
+    abstract fun getSubtaskById(id: Long): Single<SubtaskEntity>
 
     @Insert
     abstract fun insert(subtaskEntity: SubtaskEntity)
