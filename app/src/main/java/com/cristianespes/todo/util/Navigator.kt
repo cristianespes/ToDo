@@ -16,7 +16,7 @@ object Navigator {
         context.startActivity(intent)
     }
 
-    fun navigateToEditTaskFragment(task: Task, fragmentManager: FragmentManager) {
+    fun navigateToTaskMenuFragment(task: Task, fragmentManager: FragmentManager) {
         val fragment = EditTaskFragment.newInstance(task)
         fragment.show(fragmentManager, null)
     }

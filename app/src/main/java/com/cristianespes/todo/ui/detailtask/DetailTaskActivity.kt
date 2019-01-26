@@ -52,7 +52,7 @@ class DetailTaskActivity : BaseActivity(), EditTaskFragment.UpdatedTask {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
 
         item.takeIf { item?.itemId == R.id.action_edit }?.let { _ ->
-            Navigator.navigateToEditTaskFragment(task, supportFragmentManager)
+            Navigator.navigateToTaskMenuFragment(task, supportFragmentManager)
         }
 
         item.takeIf { item?.itemId == R.id.action_delete }?.let { _ ->

@@ -15,21 +15,26 @@ import com.cristianespes.todo.data.model.Task
 import com.cristianespes.todo.ui.adapter.SubtaskAdapter
 import com.cristianespes.todo.ui.viewmodel.SubtaskViewModel
 import com.cristianespes.todo.ui.viewmodel.TaskViewModel
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_detail_task.*
 import org.koin.android.viewmodel.ext.android.viewModel
 import java.text.SimpleDateFormat
 
 class DetailTaskFragment: Fragment(), SubtaskAdapter.Listener {
-    override fun onTaskClicked(subtask: Subtask) {
+    override fun onSubtaskClicked(subtask: Subtask) {
         Log.d("Patata", "onTaskClicked en ${subtask.content}")
     }
 
-    override fun onTaskMarked(subtask: Subtask, isDone: Boolean) {
-        Log.d("Patata", "onTaskMarked en ${subtask.content}")
+    override fun onSubtaskLongClicked(subtask: Subtask) {
+        deleteSubtaskDialog(subtask)
     }
 
-    override fun onTaskLongClicked(subtask: Subtask) {
-        Log.d("Patata", "onTaskLongClicked en ${subtask.content}")
+    override fun onSubtaskMarked(subtask: Subtask, isDone: Boolean) {
+        if (isDone) {
+            subtaskViewModel.markAsDone(subtask)
+        } else {
+            subtaskViewModel.markAsNotDone(subtask)
+        }
     }
 
     companion object {
@@ -92,13 +97,9 @@ class DetailTaskFragment: Fragment(), SubtaskAdapter.Listener {
 
         setUpRecycler()
 
-
-        Log.d("PATATA2", task!!.id.toString())
-        // Ejemplo para obtener las subtareas de una tarea
         subtaskViewModel.loadSubtasksByTaskId(task!!.id)
         with (subtaskViewModel) {
             subtasksEvent.observe(this@DetailTaskFragment, Observer { subtasks ->
-                Log.d("PATATA3", subtasks.toString())
                 adapter.submitList(subtasks)
             })
         }
@@ -113,6 +114,17 @@ class DetailTaskFragment: Fragment(), SubtaskAdapter.Listener {
 
     fun updateTask(newText: String) {
         titleDetailTask.text = newText
+    }
+
+    private fun deleteSubtaskDialog(subtask: Subtask) {
+        subtaskViewModel.deleteSubtask(subtask)
+
+        Snackbar
+            .make(fragment_detail_task, getString(R.string.subtask_deleted), Snackbar.LENGTH_LONG)
+            .setAction(getString(R.string.undo)) {
+                subtaskViewModel.addNewSubtask(subtask.content, subtask.taskId)
+            }
+            .show()
     }
 
 }

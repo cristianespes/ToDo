@@ -1,7 +1,6 @@
 package com.cristianespes.todo.ui.taskslist
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -68,7 +67,7 @@ class TasksListFragment: Fragment(), TaskAdapter.Listener {
     override fun onTaskLongClicked(task: Task) {
         val items = arrayListOf(
             BottomMenuItem(R.drawable.ic_edit, getString(R.string.edit)) {
-                Navigator.navigateToEditTaskFragment(task, childFragmentManager)
+                Navigator.navigateToTaskMenuFragment(task, childFragmentManager)
             },
             BottomMenuItem(R.drawable.ic_delete, getString(R.string.delete)) {
                 showConfirmDeleteTaskDialog(task)
