@@ -1,6 +1,5 @@
-package com.cristianespes.todo.ui.menusubtask
+package com.cristianespes.todo.ui.editsubtask
 
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -13,13 +12,13 @@ import com.cristianespes.todo.util.BottomSheetDialog
 import kotlinx.android.synthetic.main.fragment_edit_task.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
-class MenuSubtaskFragment: BottomSheetDialog() {
+class EditSubtaskFragment: BottomSheetDialog() {
 
     companion object {
-        const val PARAM_TASK = "task"
+        const val PARAM_TASK = "subtask"
 
-        fun newInstance(subtask: Subtask): MenuSubtaskFragment =
-            MenuSubtaskFragment().apply {
+        fun newInstance(subtask: Subtask): EditSubtaskFragment =
+            EditSubtaskFragment().apply {
                 arguments = Bundle().apply {
                     putParcelable(PARAM_TASK, subtask)
                 }
@@ -39,11 +38,12 @@ class MenuSubtaskFragment: BottomSheetDialog() {
         subtask = arguments?.let {
             it.getParcelable(PARAM_TASK)
         }
-        if (subtask == null) {
+
+        subtask?.let {
+            setUp()
+        }?: run {
             dismiss()
         }
-
-        setUp()
     }
 
     private fun setUp() {
@@ -54,7 +54,7 @@ class MenuSubtaskFragment: BottomSheetDialog() {
 
     private fun bindEvents() {
         with (subtaskViewModel) {
-            subtaskUpdatedEvent.observe(this@MenuSubtaskFragment, Observer {
+            subtaskUpdatedEvent.observe(this@EditSubtaskFragment, Observer {
                 dismiss()
             })
         }

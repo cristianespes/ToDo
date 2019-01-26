@@ -6,8 +6,9 @@ import androidx.fragment.app.FragmentManager
 import com.cristianespes.todo.data.model.Subtask
 import com.cristianespes.todo.data.model.Task
 import com.cristianespes.todo.ui.detailtask.DetailTaskActivity
-import com.cristianespes.todo.ui.menusubtask.MenuSubtaskFragment
-import com.cristianespes.todo.ui.menutask.MenuTaskFragment
+import com.cristianespes.todo.ui.editsubtask.EditSubtaskFragment
+import com.cristianespes.todo.ui.edittask.EditTaskFragment
+import com.cristianespes.todo.ui.newsubtask.NewSubtaskFragment
 import com.cristianespes.todo.ui.newtask.NewTaskActivity
 
 object Navigator {
@@ -18,7 +19,7 @@ object Navigator {
     }
 
     fun navigateToTaskMenuFragment(task: Task, fragmentManager: FragmentManager) {
-        val fragment = MenuTaskFragment.newInstance(task)
+        val fragment = EditTaskFragment.newInstance(task)
         fragment.show(fragmentManager, null)
     }
 
@@ -28,8 +29,13 @@ object Navigator {
         context.startActivity(intent)
     }
 
-    fun navigateToSubtaskMenuFragment(subtask: Subtask, fragmentManager: FragmentManager) {
-        val fragment = MenuSubtaskFragment.newInstance(subtask)
+    fun navigateToEditSubtaskFragment(subtask: Subtask, fragmentManager: FragmentManager) {
+        val fragment = EditSubtaskFragment.newInstance(subtask)
+        fragment.show(fragmentManager, null)
+    }
+
+    fun navigateToAddNewSubtaskFragment(taskId: Long, fragmentManager: FragmentManager) {
+        val fragment = NewSubtaskFragment.newInstance(taskId)
         fragment.show(fragmentManager, null)
     }
 }

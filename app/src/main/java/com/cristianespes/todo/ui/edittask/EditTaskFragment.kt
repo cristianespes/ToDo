@@ -1,4 +1,4 @@
-package com.cristianespes.todo.ui.menutask
+package com.cristianespes.todo.ui.edittask
 
 import android.content.Context
 import android.os.Bundle
@@ -13,7 +13,7 @@ import com.cristianespes.todo.util.BottomSheetDialog
 import org.koin.android.viewmodel.ext.android.viewModel
 import kotlinx.android.synthetic.main.fragment_edit_task.*
 
-class MenuTaskFragment: BottomSheetDialog() {
+class EditTaskFragment: BottomSheetDialog() {
 
     interface UpdatedTask {
         fun updatedTaskText(taskText: String)
@@ -24,8 +24,8 @@ class MenuTaskFragment: BottomSheetDialog() {
     companion object {
         const val PARAM_TASK = "task"
 
-        fun newInstance(task: Task): MenuTaskFragment =
-            MenuTaskFragment().apply {
+        fun newInstance(task: Task): EditTaskFragment =
+            EditTaskFragment().apply {
                 arguments = Bundle().apply {
                     putParcelable(PARAM_TASK, task)
                 }
@@ -68,7 +68,7 @@ class MenuTaskFragment: BottomSheetDialog() {
 
     private fun bindEvents() {
         with (taskViewModel) {
-            taskUpdatedEvent.observe(this@MenuTaskFragment, Observer {
+            taskUpdatedEvent.observe(this@EditTaskFragment, Observer {
                 listener?.updatedTaskText(inputTaskContent.text.toString())
                 dismiss()
             })

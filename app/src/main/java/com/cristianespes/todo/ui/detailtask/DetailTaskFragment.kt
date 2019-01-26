@@ -19,13 +19,17 @@ import com.cristianespes.todo.util.Navigator
 import com.cristianespes.todo.util.bottomsheet.BottomMenuItem
 import com.cristianespes.todo.util.bottomsheet.BottomSheetMenu
 import com.google.android.material.snackbar.Snackbar
+import com.jakewharton.rxbinding3.view.clicks
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.rxkotlin.addTo
 import kotlinx.android.synthetic.main.fragment_detail_task.*
 import org.koin.android.viewmodel.ext.android.viewModel
 import java.text.SimpleDateFormat
+import java.util.concurrent.TimeUnit
 
 class DetailTaskFragment: Fragment(), SubtaskAdapter.Listener {
     override fun onSubtaskClicked(subtask: Subtask) {
-        Navigator.navigateToSubtaskMenuFragment(subtask, childFragmentManager)
+        Navigator.navigateToEditSubtaskFragment(subtask, childFragmentManager)
     }
 
     override fun onSubtaskLongClicked(subtask: Subtask) {
@@ -60,11 +64,14 @@ class DetailTaskFragment: Fragment(), SubtaskAdapter.Listener {
     val taskViewModel: TaskViewModel by viewModel() // Lo tomamos del inyector de dependencias
     val subtaskViewModel: SubtaskViewModel by viewModel()
 
+    private val compositeDisposable = CompositeDisposable()
+
     val adapter: SubtaskAdapter by lazy {
         SubtaskAdapter(this)
     }
 
     var task: Task? = null
+    var subtaskList: MutableList<Subtask> = mutableListOf()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_detail_task, container, false)
@@ -82,6 +89,11 @@ class DetailTaskFragment: Fragment(), SubtaskAdapter.Listener {
         }?: run {
             activity!!.finish()
         }
+    }
+
+    override fun onDestroy() {
+        compositeDisposable.clear()
+        super.onDestroy()
     }
 
     private fun setUp() {
@@ -110,9 +122,11 @@ class DetailTaskFragment: Fragment(), SubtaskAdapter.Listener {
         with (subtaskViewModel) {
             subtasksEvent.observe(this@DetailTaskFragment, Observer { subtasks ->
                 adapter.submitList(subtasks)
+                subtaskList = subtasks.toMutableList()
             })
         }
 
+        bindActions()
     }
 
     private fun setUpRecycler() {
@@ -136,4 +150,16 @@ class DetailTaskFragment: Fragment(), SubtaskAdapter.Listener {
             .show()
     }
 
+    private fun bindActions() {
+        addSubtaskButton
+            .clicks()
+            .throttleFirst(500, TimeUnit.MILLISECONDS)
+            .subscribe {
+
+                Log.d("PATATA", "AÑADIR UNA NUEVA NOTA")
+
+                Navigator.navigateToAddNewSubtaskFragment(task!!.id, childFragmentManager)
+
+            }.addTo(compositeDisposable)
+    }
 }

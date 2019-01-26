@@ -79,6 +79,13 @@ class SubtaskViewModel(val subtaskRepository: SubtaskRepository) : BaseViewModel
         updateSubtask(newSubtask)
     }
 
+    /*fun markAllSubtaskAsDone(subtaskList: List<Subtask>) {
+        subtaskList.forEach { subtask ->
+            val newSubtask = subtask.copy(isDone = true)
+            updateSubtask(newSubtask)
+        }
+    }*/
+
     fun markAsNotDone(subtask: Subtask) {
         if (!subtask.isDone) {
             return
