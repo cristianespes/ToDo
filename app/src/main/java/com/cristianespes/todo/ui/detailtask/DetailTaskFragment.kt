@@ -1,18 +1,54 @@
 package com.cristianespes.todo.ui.detailtask
 
 import android.os.Bundle
+import android.util.Log
 import android.view.*
 import androidx.core.os.ConfigurationCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.DefaultItemAnimator
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.cristianespes.todo.R
+import com.cristianespes.todo.data.model.Subtask
 import com.cristianespes.todo.data.model.Task
-import com.cristianespes.todo.ui.edittask.EditTaskFragment
-import com.cristianespes.todo.ui.tasks.TaskViewModel
+import com.cristianespes.todo.ui.adapter.SubtaskAdapter
+import com.cristianespes.todo.ui.viewmodel.SubtaskViewModel
+import com.cristianespes.todo.ui.viewmodel.TaskViewModel
+import com.cristianespes.todo.util.Navigator
+import com.cristianespes.todo.util.bottomsheet.BottomMenuItem
+import com.cristianespes.todo.util.bottomsheet.BottomSheetMenu
+import com.google.android.material.snackbar.Snackbar
+import com.jakewharton.rxbinding3.view.clicks
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.rxkotlin.addTo
 import kotlinx.android.synthetic.main.fragment_detail_task.*
 import org.koin.android.viewmodel.ext.android.viewModel
 import java.text.SimpleDateFormat
+import java.util.concurrent.TimeUnit
 
-class DetailTaskFragment: Fragment() {
+class DetailTaskFragment: Fragment(), SubtaskAdapter.Listener {
+    override fun onSubtaskClicked(subtask: Subtask) {
+        Navigator.navigateToEditSubtaskFragment(subtask, childFragmentManager)
+    }
+
+    override fun onSubtaskLongClicked(subtask: Subtask) {
+        val items = arrayListOf(
+            BottomMenuItem(R.drawable.ic_delete, getString(R.string.delete)) {
+                deleteSubtaskDialog(subtask)
+            }
+        )
+
+        BottomSheetMenu(activity!!, items).show()
+    }
+
+    override fun onSubtaskMarked(subtask: Subtask, isDone: Boolean) {
+        if (isDone) {
+            subtaskViewModel.markAsDone(subtask)
+        } else {
+            subtaskViewModel.markAsNotDone(subtask)
+        }
+    }
 
     companion object {
         const val PARAM_TASK = "task"
@@ -25,9 +61,17 @@ class DetailTaskFragment: Fragment() {
             }
     }
 
-    val taskViewModel: TaskViewModel by viewModel() // Lo cojemos del inyector de dependencias
+    val taskViewModel: TaskViewModel by viewModel() // Lo tomamos del inyector de dependencias
+    val subtaskViewModel: SubtaskViewModel by viewModel()
+
+    private val compositeDisposable = CompositeDisposable()
+
+    val adapter: SubtaskAdapter by lazy {
+        SubtaskAdapter(this)
+    }
 
     var task: Task? = null
+    var subtaskList: MutableList<Subtask> = mutableListOf()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_detail_task, container, false)
@@ -45,6 +89,11 @@ class DetailTaskFragment: Fragment() {
         }?: run {
             activity!!.finish()
         }
+    }
+
+    override fun onDestroy() {
+        compositeDisposable.clear()
+        super.onDestroy()
     }
 
     private fun setUp() {
@@ -67,10 +116,50 @@ class DetailTaskFragment: Fragment() {
             }
         }
 
+        setUpRecycler()
+
+        subtaskViewModel.loadSubtasksByTaskId(task!!.id)
+        with (subtaskViewModel) {
+            subtasksEvent.observe(this@DetailTaskFragment, Observer { subtasks ->
+                adapter.submitList(subtasks)
+                subtaskList = subtasks.toMutableList()
+            })
+        }
+
+        bindActions()
+    }
+
+    private fun setUpRecycler() {
+        recyclerSubtasks.layoutManager = LinearLayoutManager(activity, RecyclerView.VERTICAL, false)
+        recyclerSubtasks.itemAnimator = DefaultItemAnimator()
+        recyclerSubtasks.adapter = adapter
     }
 
     fun updateTask(newText: String) {
         titleDetailTask.text = newText
     }
 
+    private fun deleteSubtaskDialog(subtask: Subtask) {
+        subtaskViewModel.deleteSubtask(subtask)
+
+        Snackbar
+            .make(fragment_detail_task, getString(R.string.subtask_deleted), Snackbar.LENGTH_LONG)
+            .setAction(getString(R.string.undo)) {
+                subtaskViewModel.addNewSubtask(subtask.content, subtask.taskId)
+            }
+            .show()
+    }
+
+    private fun bindActions() {
+        addSubtaskButton
+            .clicks()
+            .throttleFirst(500, TimeUnit.MILLISECONDS)
+            .subscribe {
+
+                Log.d("PATATA", "AÑADIR UNA NUEVA NOTA")
+
+                Navigator.navigateToAddNewSubtaskFragment(task!!.id, childFragmentManager)
+
+            }.addTo(compositeDisposable)
+    }
 }

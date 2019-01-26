@@ -8,7 +8,7 @@ import com.cristianespes.todo.R
 import com.cristianespes.todo.data.model.Task
 import com.cristianespes.todo.ui.base.BaseActivity
 import com.cristianespes.todo.ui.edittask.EditTaskFragment
-import com.cristianespes.todo.ui.tasks.TaskViewModel
+import com.cristianespes.todo.ui.viewmodel.TaskViewModel
 import com.cristianespes.todo.util.Navigator
 import org.koin.android.viewmodel.ext.android.viewModel
 
@@ -52,7 +52,7 @@ class DetailTaskActivity : BaseActivity(), EditTaskFragment.UpdatedTask {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
 
         item.takeIf { item?.itemId == R.id.action_edit }?.let { _ ->
-            Navigator.navigateToEditTaskFragment(task, supportFragmentManager)
+            Navigator.navigateToTaskMenuFragment(task, supportFragmentManager)
         }
 
         item.takeIf { item?.itemId == R.id.action_delete }?.let { _ ->

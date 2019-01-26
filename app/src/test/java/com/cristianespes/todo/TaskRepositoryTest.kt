@@ -18,8 +18,8 @@ class TaskRepositoryTest {
         //whenever or `when`
         whenever(repository.getAll()).then {
             Single.just(listOf(
-                Task(1, "Whatever1", Date(), false),
-                Task(2, "Whatever2", Date(), true)
+                Task(1, "Whatever1", Date(), false, false),
+                Task(2, "Whatever2", Date(), true,true)
             ))
         }
 

@@ -10,14 +10,13 @@
     android:focusable="true"
     app:cardCornerRadius="8dp">
 
-    <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="?selectableItemBackground"
         android:minHeight="72dp"
-        android:paddingBottom="16dp">
+        android:paddingBottom="8dp"
+        android:paddingTop="8dp">
 
         <TextView
             android:id="@+id/textContent"
@@ -25,11 +24,9 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="16dp"
             android:layout_marginEnd="8dp"
             android:ellipsize="end"
             android:maxLines="3"
-            android:text="TextView"
             app:layout_constraintEnd_toStartOf="@+id/checkIsDone"
             app:layout_constraintStart_toEndOf="@+id/buttonHighPriority"
             app:layout_constraintTop_toTopOf="parent"

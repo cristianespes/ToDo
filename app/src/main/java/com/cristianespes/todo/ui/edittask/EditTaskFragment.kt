@@ -8,7 +8,7 @@ import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import com.cristianespes.todo.R
 import com.cristianespes.todo.data.model.Task
-import com.cristianespes.todo.ui.tasks.TaskViewModel
+import com.cristianespes.todo.ui.viewmodel.TaskViewModel
 import com.cristianespes.todo.util.BottomSheetDialog
 import org.koin.android.viewmodel.ext.android.viewModel
 import kotlinx.android.synthetic.main.fragment_edit_task.*

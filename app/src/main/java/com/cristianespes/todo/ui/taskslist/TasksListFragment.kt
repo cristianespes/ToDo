@@ -1,4 +1,4 @@
-package com.cristianespes.todo.ui.tasks
+package com.cristianespes.todo.ui.taskslist
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -12,15 +12,19 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.cristianespes.todo.R
 import com.cristianespes.todo.data.model.Task
+import com.cristianespes.todo.ui.adapter.TaskAdapter
+import com.cristianespes.todo.ui.viewmodel.SubtaskViewModel
+import com.cristianespes.todo.ui.viewmodel.TaskViewModel
 import com.cristianespes.todo.util.Navigator
 import com.cristianespes.todo.util.bottomsheet.BottomMenuItem
 import com.cristianespes.todo.util.bottomsheet.BottomSheetMenu
 import kotlinx.android.synthetic.main.fragment_tasks.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
-class TaskFragment: Fragment(), TaskAdapter.Listener {
+class TasksListFragment: Fragment(), TaskAdapter.Listener {
 
     val taskViewModel: TaskViewModel by viewModel() // Lo cojemos del inyector de dependencias
+    val subtaskViewModel: SubtaskViewModel by viewModel()
 
     val adapter: TaskAdapter by lazy {
         TaskAdapter(this)
@@ -44,7 +48,7 @@ class TaskFragment: Fragment(), TaskAdapter.Listener {
         setUpRecycler()
 
         with (taskViewModel) {
-            tasksEvent.observe(this@TaskFragment, Observer { tasks ->
+            tasksEvent.observe(this@TasksListFragment, Observer { tasks ->
                 adapter.submitList(tasks)
             })
         }
@@ -63,7 +67,7 @@ class TaskFragment: Fragment(), TaskAdapter.Listener {
     override fun onTaskLongClicked(task: Task) {
         val items = arrayListOf(
             BottomMenuItem(R.drawable.ic_edit, getString(R.string.edit)) {
-                Navigator.navigateToEditTaskFragment(task, childFragmentManager)
+                Navigator.navigateToTaskMenuFragment(task, childFragmentManager)
             },
             BottomMenuItem(R.drawable.ic_delete, getString(R.string.delete)) {
                 showConfirmDeleteTaskDialog(task)

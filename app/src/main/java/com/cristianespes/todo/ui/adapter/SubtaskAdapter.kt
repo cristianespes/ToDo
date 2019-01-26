@@ -1,7 +1,6 @@
-package com.cristianespes.todo.ui.tasks
+package com.cristianespes.todo.ui.adapter
 
 import android.animation.ValueAnimator
-import android.graphics.Color
 import android.text.SpannableString
 import android.text.Spanned
 import android.text.style.StrikethroughSpan
@@ -14,58 +13,55 @@ import androidx.interpolator.view.animation.FastOutSlowInInterpolator
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.cristianespes.todo.R
-import com.cristianespes.todo.data.model.Task
-import com.cristianespes.todo.util.DateHelper
-import com.cristianespes.todo.util.IconButton
-import kotlinx.android.synthetic.main.item_task.view.*
+import com.cristianespes.todo.data.model.Subtask
+import kotlinx.android.synthetic.main.item_subtask.view.*
 
-class TaskAdapter(val listener: Listener) : ListAdapter<Task, TaskAdapter.TaskViewHolder>(TaskDiffUtil.getInstance()) {
+class SubtaskAdapter(val listener: Listener) : ListAdapter<Subtask, SubtaskAdapter.SubtaskViewHolder>(SubtaskDiffUtil.getInstance()) {
 
     interface Listener {
-        fun onTaskClicked(task: Task)
-        fun onTaskMarked(task: Task, isDone: Boolean)
-        fun onTaskLongClicked(task: Task)
-        fun onTaskHighPriorityMarked(task: Task, isHighPriority: Boolean)
+        fun onSubtaskClicked(subtask: Subtask)
+        fun onSubtaskMarked(subtask: Subtask, isDone: Boolean)
+        fun onSubtaskLongClicked(subtask: Subtask)
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TaskViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_task, parent, false)
-        return TaskViewHolder(view)
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SubtaskAdapter.SubtaskViewHolder {
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_subtask, parent, false)
+        return SubtaskViewHolder(view)
     }
 
-    override fun onBindViewHolder(holder: TaskViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: SubtaskAdapter.SubtaskViewHolder, position: Int) {
         holder.bind(getItem(position))
     }
 
-    inner class TaskViewHolder(view: View) : RecyclerView.ViewHolder(view) {
 
-        fun bind(task: Task) {
+    inner class SubtaskViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+
+        fun bind(subtask: Subtask) {
             with(itemView) {
-                if (task.isDone) {
-                    applyStrikethrough(textContent, task.content)
+                // TODO: IMPLEMENTAR
+
+                if (subtask.isDone) {
+                    applyStrikethrough(subtaskContent, subtask.content)
                 } else {
-                    removeStrikethrough(textContent, task.content)
+                    removeStrikethrough(subtaskContent, subtask.content)
                 }
 
-                applyColorToHighPriority(itemView.findViewById(R.id.buttonHighPriority), task.isHighPriority)
-
-                textDate.text = DateHelper.calculateTimeAgo(task.createdAt)
-
-                checkIsDone.isChecked = task.isDone
+                checkIsDone.isChecked = subtask.isDone
 
                 setOnClickListener {
-                    listener.onTaskClicked(task)
+                    listener.onSubtaskClicked(subtask)
                 }
 
                 setOnLongClickListener {
-                    listener.onTaskLongClicked(task)
+                    listener.onSubtaskLongClicked(subtask)
                     true
                 }
 
                 checkIsDone.setOnClickListener {
                     val isChecked = (it as CheckBox).isChecked
 
-                    listener.onTaskMarked(task, isChecked)
+                    listener.onSubtaskMarked(subtask, isChecked)
 
                     it.animate()
                         .rotationBy(360f)
@@ -76,24 +72,11 @@ class TaskAdapter(val listener: Listener) : ListAdapter<Task, TaskAdapter.TaskVi
                     executeAnimation(itemView, isChecked)
                 }
 
-                buttonHighPriority.setOnClickListener {
-                    val isHighPriority = !task.isHighPriority
-
-                    listener.onTaskHighPriorityMarked(task, isHighPriority)
-                }
-            }
-        }
-
-        private fun applyColorToHighPriority(view: IconButton, isHighPriority: Boolean) {
-            if (isHighPriority) {
-                view.setColorDrawable(Color.RED, R.drawable.ic_high_priority)
-            } else {
-                view.setColorDrawable(Color.WHITE, R.drawable.ic_low_priority)
             }
         }
 
         private fun executeAnimation(view: View, isDone: Boolean) {
-            val textContent = view.findViewById<TextView>(R.id.textContent)
+            val textContent = view.findViewById<TextView>(R.id.subtaskContent)
             val content = textContent.text.toString()
 
             if (isDone) {
@@ -143,4 +126,5 @@ class TaskAdapter(val listener: Listener) : ListAdapter<Task, TaskAdapter.TaskVi
         }
 
     }
+
 }
