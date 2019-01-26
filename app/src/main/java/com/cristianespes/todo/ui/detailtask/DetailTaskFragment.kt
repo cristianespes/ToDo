@@ -25,7 +25,7 @@ class DetailTaskFragment: Fragment() {
             }
     }
 
-    val taskViewModel: TaskViewModel by viewModel() // Lo cojemos del inyector de dependencias
+    val taskViewModel: TaskViewModel by viewModel() // Lo tomamos del inyector de dependencias
 
     var task: Task? = null
 
