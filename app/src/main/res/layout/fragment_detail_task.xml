@@ -60,6 +60,13 @@
         app:layout_constraintTop_toTopOf="@+id/checkIsDoneDetailTask"
         tools:text="Finish" />
 
+    <FrameLayout
+        android:id="@+id/fragment_monitoring"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layout_constraintTop_toBottomOf="@+id/checkIsDoneDetailTask" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerSubtasks"
         android:layout_width="0dp"
@@ -72,7 +79,7 @@
         app:layout_constraintBottom_toTopOf="@+id/addSubtaskButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/checkIsDoneDetailTask" />
+        app:layout_constraintTop_toBottomOf="@+id/fragment_monitoring" />
 
     <Button
         android:id="@+id/addSubtaskButton"

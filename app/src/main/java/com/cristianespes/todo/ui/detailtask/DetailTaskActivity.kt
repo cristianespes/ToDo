@@ -8,6 +8,7 @@ import com.cristianespes.todo.R
 import com.cristianespes.todo.data.model.Task
 import com.cristianespes.todo.ui.base.BaseActivity
 import com.cristianespes.todo.ui.edittask.EditTaskFragment
+import com.cristianespes.todo.ui.monitoring.MonitoringSubtaskFragment
 import com.cristianespes.todo.ui.viewmodel.TaskViewModel
 import com.cristianespes.todo.util.Navigator
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -26,6 +27,7 @@ class DetailTaskActivity : BaseActivity(), EditTaskFragment.UpdatedTask {
     lateinit var task: Task
 
     private lateinit var detailTaskFragment: DetailTaskFragment
+    private lateinit var monitoringSubtaskFragment: MonitoringSubtaskFragment
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,6 +66,7 @@ class DetailTaskActivity : BaseActivity(), EditTaskFragment.UpdatedTask {
 
     private fun setUp() {
         detailTaskFragment = DetailTaskFragment.newInstance(task)
+        monitoringSubtaskFragment = MonitoringSubtaskFragment()
 
         supportFragmentManager
             .beginTransaction()

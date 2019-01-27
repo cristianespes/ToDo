@@ -39,8 +39,6 @@ class SubtaskAdapter(val listener: Listener) : ListAdapter<Subtask, SubtaskAdapt
 
         fun bind(subtask: Subtask) {
             with(itemView) {
-                // TODO: IMPLEMENTAR
-
                 if (subtask.isDone) {
                     applyStrikethrough(subtaskContent, subtask.content)
                 } else {

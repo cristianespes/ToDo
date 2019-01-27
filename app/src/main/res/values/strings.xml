@@ -25,4 +25,7 @@
     <string name="content_in_subtask">To save the subtask you must describe the content</string>
     <string name="cancel">Cancelar</string>
     <string name="list_task_empty">No lists! Press + to add</string>
+    <string name="total">Total</string>
+    <string name="done">Done</string>
+    <string name="to_do">To do</string>
 </resources>

@@ -13,6 +13,7 @@ import com.cristianespes.todo.R
 import com.cristianespes.todo.data.model.Subtask
 import com.cristianespes.todo.data.model.Task
 import com.cristianespes.todo.ui.adapter.SubtaskAdapter
+import com.cristianespes.todo.ui.monitoring.MonitoringSubtaskFragment
 import com.cristianespes.todo.ui.viewmodel.SubtaskViewModel
 import com.cristianespes.todo.ui.viewmodel.TaskViewModel
 import com.cristianespes.todo.util.Navigator
@@ -28,6 +29,11 @@ import java.text.SimpleDateFormat
 import java.util.concurrent.TimeUnit
 
 class DetailTaskFragment: Fragment(), SubtaskAdapter.Listener {
+
+    interface UpdateTableData {
+        fun onSubtaskListChanged(subtaskList: List<Subtask>)
+    }
+
     override fun onSubtaskClicked(subtask: Subtask) {
         Navigator.navigateToEditSubtaskFragment(subtask, childFragmentManager)
     }
@@ -64,6 +70,8 @@ class DetailTaskFragment: Fragment(), SubtaskAdapter.Listener {
     val taskViewModel: TaskViewModel by viewModel() // Lo tomamos del inyector de dependencias
     val subtaskViewModel: SubtaskViewModel by viewModel()
 
+    private lateinit var monitoringFragment: MonitoringSubtaskFragment
+
     private val compositeDisposable = CompositeDisposable()
 
     val adapter: SubtaskAdapter by lazy {
@@ -75,6 +83,16 @@ class DetailTaskFragment: Fragment(), SubtaskAdapter.Listener {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_detail_task, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+
+        monitoringFragment = MonitoringSubtaskFragment()
+
+        childFragmentManager
+            .beginTransaction()
+            .replace(R.id.fragment_monitoring, monitoringFragment)
+            .commit()
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -123,6 +141,9 @@ class DetailTaskFragment: Fragment(), SubtaskAdapter.Listener {
             subtasksEvent.observe(this@DetailTaskFragment, Observer { subtasks ->
                 adapter.submitList(subtasks)
                 subtaskList = subtasks.toMutableList()
+
+
+                monitoringFragment.updateTable(subtasks)
             })
         }
 
