@@ -25,6 +25,11 @@ class TasksListActivity : BaseActivity() {
         setUp()
     }
 
+    override fun onDestroy() {
+        compositeDisposable.clear()
+        super.onDestroy()
+    }
+
     private fun setUp() {
         bindActions()
 
@@ -42,11 +47,6 @@ class TasksListActivity : BaseActivity() {
                 Navigator.navigateToNewTaskActivity(this)
             }
             .addTo(compositeDisposable)
-    }
-
-    override fun onDestroy() {
-        compositeDisposable.clear()
-        super.onDestroy()
     }
 
 }

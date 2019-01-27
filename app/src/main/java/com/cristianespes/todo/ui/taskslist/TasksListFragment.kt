@@ -50,8 +50,11 @@ class TasksListFragment: Fragment(), TaskAdapter.Listener {
         with (taskViewModel) {
             tasksEvent.observe(this@TasksListFragment, Observer { tasks ->
                 adapter.submitList(tasks)
+                checkListIsEmpty(tasks.count())
             })
         }
+
+
     }
 
     private fun setUpRecycler() {
@@ -99,5 +102,12 @@ class TasksListFragment: Fragment(), TaskAdapter.Listener {
 
     override fun onTaskHighPriorityMarked(task: Task, isHighPriority: Boolean) {
         taskViewModel.markHighPriority(task, isHighPriority)
+    }
+
+    private fun checkListIsEmpty(count: Int) {
+        if (count > 0)
+            taskListEmpty.visibility = View.GONE
+        else
+            taskListEmpty.visibility = View.VISIBLE
     }
 }
