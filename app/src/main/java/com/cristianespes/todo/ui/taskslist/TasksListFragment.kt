@@ -1,5 +1,6 @@
 package com.cristianespes.todo.ui.taskslist
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -23,6 +24,12 @@ import org.koin.android.viewmodel.ext.android.viewModel
 
 class TasksListFragment: Fragment(), TaskAdapter.Listener {
 
+    interface UpdateTableData {
+        fun onTaskListChanged(taskList: List<Task>)
+    }
+
+    var listener: UpdateTableData? = null
+
     val taskViewModel: TaskViewModel by viewModel() // Lo cojemos del inyector de dependencias
     val subtaskViewModel: SubtaskViewModel by viewModel()
 
@@ -44,6 +51,14 @@ class TasksListFragment: Fragment(), TaskAdapter.Listener {
         setUp()
     }
 
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+
+        if (context is UpdateTableData) {
+            listener = context // Inicializar el listener
+        }
+    }
+
     private fun setUp() {
         setUpRecycler()
 
@@ -51,6 +66,7 @@ class TasksListFragment: Fragment(), TaskAdapter.Listener {
             tasksEvent.observe(this@TasksListFragment, Observer { tasks ->
                 adapter.submitList(tasks)
                 checkListIsEmpty(tasks.count())
+                listener?.onTaskListChanged(tasks)
             })
         }
 

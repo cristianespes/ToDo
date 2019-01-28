@@ -15,14 +15,16 @@
 
         <TextView
             android:id="@+id/totalText"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/total" />
+            android:text="@string/total"
+            android:textAlignment="center" />
 
         <TextView
             android:id="@+id/totalValue"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textAlignment="center"
             android:textColor="?colorAccent"
             android:textSize="18sp"
             android:textStyle="bold"
@@ -43,14 +45,16 @@
 
         <TextView
             android:id="@+id/doneText"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/done" />
+            android:text="@string/done"
+            android:textAlignment="center" />
 
         <TextView
             android:id="@+id/doneValue"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textAlignment="center"
             android:textColor="?colorAccent"
             android:textSize="18sp"
             android:textStyle="bold"
@@ -71,14 +75,16 @@
 
         <TextView
             android:id="@+id/todoText"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/to_do" />
+            android:text="@string/to_do"
+            android:textAlignment="center" />
 
         <TextView
             android:id="@+id/todoValue"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textAlignment="center"
             android:textColor="?colorAccent"
             android:textSize="18sp"
             android:textStyle="bold"

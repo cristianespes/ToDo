@@ -30,10 +30,6 @@ import java.util.concurrent.TimeUnit
 
 class DetailTaskFragment: Fragment(), SubtaskAdapter.Listener {
 
-    interface UpdateTableData {
-        fun onSubtaskListChanged(subtaskList: List<Subtask>)
-    }
-
     override fun onSubtaskClicked(subtask: Subtask) {
         Navigator.navigateToEditSubtaskFragment(subtask, childFragmentManager)
     }
@@ -141,7 +137,6 @@ class DetailTaskFragment: Fragment(), SubtaskAdapter.Listener {
             subtasksEvent.observe(this@DetailTaskFragment, Observer { subtasks ->
                 adapter.submitList(subtasks)
                 subtaskList = subtasks.toMutableList()
-
 
                 monitoringFragment.updateTable(subtasks)
             })

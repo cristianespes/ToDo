@@ -79,7 +79,8 @@
         app:layout_constraintBottom_toTopOf="@+id/addSubtaskButton"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_monitoring" />
+        app:layout_constraintTop_toBottomOf="@+id/fragment_monitoring"
+        tools:listitem="@layout/item_subtask"/>
 
     <Button
         android:id="@+id/addSubtaskButton"

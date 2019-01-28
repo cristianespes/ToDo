@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerTasks"
@@ -13,7 +14,12 @@
         android:paddingTop="8dp"
         android:paddingEnd="16dp"
         android:paddingRight="16dp"
-        android:paddingBottom="70dp" />
+        android:paddingBottom="70dp"
+        tools:listitem="@layout/item_task"
+        tools:itemCount="8"
+        tools:orientation="vertical"
+        tools:scrollbars="vertical"
+        tools:spanCount="1"/>
 
     <TextView
         android:id="@+id/taskListEmpty"
