@@ -91,4 +91,36 @@
             tools:text="XX" />
     </LinearLayout>
 
+    <View
+        android:id="@+id/priorityLinearView"
+        android:layout_width="1dp"
+        android:layout_height="match_parent"
+        android:background="?colorAccent" />
+
+    <LinearLayout
+        android:id="@+id/priorityLinearLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.3"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/priorityText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/priority"
+            android:textAlignment="center" />
+
+        <TextView
+            android:id="@+id/priorityValue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:textColor="?colorAccent"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            tools:text="XX" />
+    </LinearLayout>
+
 </LinearLayout>

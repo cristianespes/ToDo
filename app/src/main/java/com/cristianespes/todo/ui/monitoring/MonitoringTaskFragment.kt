@@ -19,12 +19,15 @@ class MonitoringTaskFragment: Fragment() {
     fun updateTable(taskList: List<Task>) {
         val total = taskList.count()
         var todo = 0
+        var priority = 0
         taskList.forEach {
             if (it.isDone == false) { todo += 1 }
+            if (it.isHighPriority == true) { priority += 1 }
         }
 
         totalValue.text = total.toString()
         doneValue.text = (total - todo).toString()
         todoValue.text = todo.toString()
+        priorityValue.text = priority.toString()
     }
 }

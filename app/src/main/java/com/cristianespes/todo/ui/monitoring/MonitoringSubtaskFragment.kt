@@ -22,6 +22,9 @@ class MonitoringSubtaskFragment: Fragment() {
             if (it.isDone == false) { todo += 1 }
         }
 
+        priorityLinearLayout.visibility = View.GONE
+        priorityLinearView.visibility = View.GONE
+
         totalValue.text = total.toString()
         doneValue.text = (total - todo).toString()
         todoValue.text = todo.toString()

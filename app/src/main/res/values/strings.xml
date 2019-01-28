@@ -28,4 +28,5 @@
     <string name="total">Total</string>
     <string name="done">Done</string>
     <string name="to_do">To do</string>
+    <string name="priority">Priority</string>
 </resources>
