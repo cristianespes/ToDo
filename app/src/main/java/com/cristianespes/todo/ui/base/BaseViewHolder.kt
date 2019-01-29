@@ -25,7 +25,6 @@ abstract class BaseViewholder<TaskType>(itemView: View) : RecyclerView.ViewHolde
     }
 
     fun executeAnimation(textContent: TextView, isDone: Boolean) {
-        //val textContent = view.findViewById<TextView>(R.id.textContent)
         val content = textContent.text.toString()
 
         if (isDone) {
