@@ -19,6 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="@string/priority"
+            android:textColor="@android:color/white"
             android:textAlignment="center" />
 
         <TextView
@@ -36,7 +37,7 @@
         android:id="@+id/priorityLinearView"
         android:layout_width="1dp"
         android:layout_height="match_parent"
-        android:background="?colorAccent" />
+        android:background="@android:color/darker_gray" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -66,7 +67,7 @@
     <View
         android:layout_width="1dp"
         android:layout_height="match_parent"
-        android:background="?colorAccent" />
+        android:background="@android:color/darker_gray" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -96,7 +97,7 @@
     <View
         android:layout_width="1dp"
         android:layout_height="match_parent"
-        android:background="?colorAccent" />
+        android:background="@android:color/darker_gray" />
 
     <LinearLayout
         android:layout_width="wrap_content"

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">ToDo</string>
+    <string name="action_settings">Ajustes</string>
+    <string name="new_task_title">Nueva tarea</string>
+    <string name="new_task_save_button">Guardar</string>
+    <string name="delete">Eliminar</string>
+    <string name="no">No</string>
+    <string name="yes">Sí</string>
+    <string name="delete_task_title">¿Estás seguro?</string>
+    <string name="delete_task_message">La tarea será eliminada para siempre, no podrás recuperarla.</string>
+    <string name="edit">Editar</string>
+    <string name="new_task_is_high_priority">Prioritaria</string>
+    <string name="detail_task_title">Detalle de la tarea</string>
+    <string name="finished">Finalizada</string>
+    <string name="add_subtask">Añadir subtarea</string>
+    <string name="subtask_deleted">Subtarea eliminada</string>
+    <string name="undo">Deshacer</string>
+    <string name="accept">Aceptar</string>
+    <string name="task_empty">Tarea vacía</string>
+    <string name="content_in_task">Para guardar la tarea, debes asignar contenido</string>
+    <string name="subtask_empty">Subtarea vacía</string>
+    <string name="content_in_subtask">Para guardar la subtarea, debes asignar contenido</string>
+    <string name="cancel">Cancelar</string>
+    <string name="list_task_empty">¡No hay listados! Pulsa + para añadir</string>
+    <string name="total">Total</string>
+    <string name="done">Hechas</string>
+    <string name="priority">Prioritarias</string>
+    <string name="to_do">Pendientes</string>
+    <string name="task_input_hint">Descripción</string>
+</resources>
