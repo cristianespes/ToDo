@@ -9,18 +9,14 @@ data class Task(
     val content: String,
     val createdAt: Date,
     val isDone: Boolean,
-    val isHighPriority: Boolean//,
-    //var subtasks: List<Subtask>
+    val isHighPriority: Boolean
 ) : Parcelable {
     constructor(parcel: Parcel) : this(
         id = parcel.readLong(),
         content = parcel.readString()!!,
         createdAt = Date(parcel.readLong()),
         isDone = parcel.readByte() != 0.toByte(),
-        isHighPriority = parcel.readByte() != 0.toByte()//,
-        /*subtasks = listOf<Subtask>().apply {
-            parcel.readList(this, Subtask::class.java.classLoader)
-        }*/
+        isHighPriority = parcel.readByte() != 0.toByte()
     )
 
     override fun writeToParcel(parcel: Parcel, p1: Int) {
@@ -29,7 +25,6 @@ data class Task(
         parcel.writeLong(createdAt.time)
         parcel.writeByte(if (isDone) 1 else 0)
         parcel.writeByte(if (isHighPriority) 1 else 0)
-        //parcel.writeList(subtasks)
     }
 
     override fun describeContents(): Int {

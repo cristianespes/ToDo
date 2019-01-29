@@ -10,6 +10,7 @@ import io.reactivex.Single
 class LocalDataSource(val toDoDatabase: ToDoDatabase,
                       val taskMapper: TaskMapper,
                       val taskEntityMapper: TaskEntityMapper): TaskDataSource {
+
     override fun getAll(): Single<List<Task>> =
         toDoDatabase
             .getTaskDao()
@@ -34,11 +35,6 @@ class LocalDataSource(val toDoDatabase: ToDoDatabase,
         toDoDatabase
             .getTaskDao()
             .insert(taskEntity)
-
-        // Eliminar
-        /*toDoDatabase
-            .getSubtaskDao()
-            .insert(SubtaskEntity(1, "Subtarea de la tarea", false, 1))*/
     }
 
     override fun delete(task: Task) {

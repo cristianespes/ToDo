@@ -47,7 +47,7 @@ class MockitoExampleTest {
 
         // Test unitario
         //Assert.assertEquals(1, mutableList.size) // Junit nos dice qué ocurre
-        // Este método da error porque realmente no añade nada, mutableList es un mock: val mutableList: MutableList<String> = mock()
+        // Este método dará error porque realmente no añade nada, mutableList es un mock: val mutableList: MutableList<String> = mock()
         // Si fuera val mutableList: MutableList<String> = mutableListOf(), el test unitario sería correcto.
 
         // mockito (normal)
