@@ -14,6 +14,7 @@
     <string name="detail_task_title">Detalle de la tarea</string>
     <string name="finished">Finalizada</string>
     <string name="add_subtask">Añadir subtarea</string>
+    <string name="task_deleted">Tarea eliminada</string>
     <string name="subtask_deleted">Subtarea eliminada</string>
     <string name="undo">Deshacer</string>
     <string name="accept">Aceptar</string>
