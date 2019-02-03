@@ -161,7 +161,7 @@ class DetailTaskFragment: Fragment(), SubtaskAdapter.Listener {
         Snackbar
             .make(fragment_detail_task, getString(R.string.subtask_deleted), Snackbar.LENGTH_LONG)
             .setAction(getString(R.string.undo)) {
-                subtaskViewModel.addNewSubtask(subtask.content, subtask.taskId)
+                subtaskViewModel.addNewSubtask(content = subtask.content, taskId = subtask.taskId)
             }
             .show()
     }
@@ -171,11 +171,7 @@ class DetailTaskFragment: Fragment(), SubtaskAdapter.Listener {
             .clicks()
             .throttleFirst(500, TimeUnit.MILLISECONDS)
             .subscribe {
-
-                Log.d("PATATA", "AÑADIR UNA NUEVA NOTA")
-
                 Navigator.navigateToAddNewSubtaskFragment(task!!.id, childFragmentManager)
-
             }.addTo(compositeDisposable)
     }
 }

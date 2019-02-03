@@ -99,15 +99,13 @@ class TasksListFragment: Fragment(), TaskAdapter.Listener {
     }
 
     private fun showConfirmDeleteTaskDialog(task: Task) {
-        var save = true
         var subtaskList = mutableListOf<Subtask>()
         subtaskViewModel.loadSubtasksByTaskId(task.id)
         with (subtaskViewModel) {
             subtasksEvent.observe(this@TasksListFragment, Observer { subtasks ->
-                if (save) {
+                if (subtasks.isNotEmpty()) {
                     subtaskList = subtasks.toMutableList()
                 }
-                save = false
             })
         }
 
@@ -120,17 +118,10 @@ class TasksListFragment: Fragment(), TaskAdapter.Listener {
                 Snackbar
                     .make(fragment_tasks, getString(R.string.task_deleted), Snackbar.LENGTH_LONG)
                     .setAction(getString(R.string.undo)) {
-                        taskViewModel.addNewTask(task.content, task.isHighPriority)
+                        taskViewModel.addNewTask(id = task.id, content = task.content, createdAt = task.createdAt, isDone = task.isDone, isHighPriority = task.isHighPriority)
 
-                        with (taskViewModel) {
-                            tasksEvent.observe(this@TasksListFragment, Observer { tasks ->
-
-                                subtaskList.forEach {
-                                    val id = tasks.maxBy { it.id }!!.id
-                                    subtaskViewModel.addNewSubtask(it.content, id)
-                                }
-
-                            })
+                        subtaskList.forEach {
+                            subtaskViewModel.addNewSubtask(id = it.id, content = it.content, isDone = it.isDone, taskId = it.taskId)
                         }
 
                     }

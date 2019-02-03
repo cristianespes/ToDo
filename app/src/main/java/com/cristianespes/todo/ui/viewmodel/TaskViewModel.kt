@@ -40,8 +40,8 @@ class TaskViewModel(val taskRepository: TaskRepository) : BaseViewModel() {
             ).addTo(compositeDisposable)
     }
 
-    fun addNewTask(taskContent: String, isHighPriority: Boolean) {
-        val newTask = Task(0, taskContent, Date(), false, isHighPriority)
+    fun addNewTask(id: Long = 0, content: String, createdAt: Date = Date(), isDone: Boolean = false, isHighPriority: Boolean = false) {
+        val newTask = Task(id, content, createdAt, isDone, isHighPriority)
 
         Completable.fromCallable {
             taskRepository.insert(newTask)

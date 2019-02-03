@@ -35,8 +35,8 @@ class SubtaskViewModel(val subtaskRepository: SubtaskRepository) : BaseViewModel
             ).addTo(compositeDisposable)
     }
 
-    fun addNewSubtask(subtaskContent: String, taskId: Long) {
-        val newSubtask = Subtask(0, subtaskContent, false, taskId)
+    fun addNewSubtask(id: Long = 0, content: String, isDone: Boolean = false, taskId: Long) {
+        val newSubtask = Subtask(id, content, isDone, taskId)
 
         Completable.fromCallable {
             subtaskRepository.insert(newSubtask)

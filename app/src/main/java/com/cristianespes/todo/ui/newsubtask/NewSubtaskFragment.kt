@@ -56,7 +56,7 @@ class NewSubtaskFragment: BottomSheetDialog() {
             val textContent = inputTaskContent.text.toString()
 
             if (!textContent.isEmpty()) {
-                subtaskViewModel.addNewSubtask(inputTaskContent.text.toString(), taskId!!)
+                subtaskViewModel.addNewSubtask(content = inputTaskContent.text.toString(), taskId = taskId!!)
                 dismiss()
             } else {
                 androidx.appcompat.app.AlertDialog.Builder(activity!!)

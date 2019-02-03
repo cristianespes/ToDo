@@ -42,7 +42,7 @@ class NewTaskActivity : BaseActivity() {
             val textContent = inputTaskContent.text.toString()
 
             if (!textContent.isEmpty())
-                taskViewModel.addNewTask(textContent, checkHighPriority.isChecked)
+                taskViewModel.addNewTask(content = textContent, isHighPriority = checkHighPriority.isChecked)
             else
                 androidx.appcompat.app.AlertDialog.Builder(this)
                     .setTitle(getString(R.string.task_empty))
